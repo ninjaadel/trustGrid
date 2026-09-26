@@ -4,17 +4,17 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import { PrismaService } from '../../../prisma/prisma.service.js';
 @Injectable()
-export class JwtStrategies extends PassportStrategy(strategy) {
+export class JwtStrategies extends PassportStrategy(Strategy) {
   constructor(private prisma: PrismaService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET_SECRET,
+      secretOrKey: process.env.JWT_SECRET!,
     });
   }
   async validate(payload: any) {
     console.log('jwt çalışıyor');
 
-    if (!payload && !payload.sub) {
+    if (!payload || !payload.sub) {
       console.log('Jwt hatası : payload.sub yok', payload);
       throw new UnauthorizedException('invalid token payload');
     }
@@ -22,6 +22,6 @@ export class JwtStrategies extends PassportStrategy(strategy) {
     const user: any = {
       userId: payload.sub,
     };
-    return Strategy;
+    return user;
   }
 }
