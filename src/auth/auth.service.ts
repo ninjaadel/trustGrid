@@ -49,7 +49,7 @@ export class AuthService {
       where: { email },
     });
     if (!user) {
-      throw new ForbiddenException('böyle bir emeail kayıtlı değildir');
+      throw new ForbiddenException('şifre veya email yanlış');
     }
     const isMatch = await bcrypt.compare(password, user.password);
 
@@ -58,6 +58,6 @@ export class AuthService {
     }
 
     const { password: _, ...unAuthorizatedUser } = user;
-    return user;
+    return unAuthorizatedUser;
   }
 }
