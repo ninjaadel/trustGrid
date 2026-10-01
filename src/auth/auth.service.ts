@@ -20,11 +20,13 @@ export class AuthService {
     if (password !== confirmPassword) {
       throw new BadRequestException('şifreler uyuşmuyor');
     }
-    const exists = await this.prisma.user.findUnique({
-      where: { email: email },
+    const existingUser = await this.prisma.user.findFirst({
+      where: {
+        OR: [{ email }, { username }],
+      },
     });
 
-    if (exists) {
+    if (existingUser) {
       throw new ConflictException('aynı email kullanılmaktadır');
     }
 
