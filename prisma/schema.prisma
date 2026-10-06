@@ -12,3 +12,13 @@ email String @unique
 username String 
 password String
 }
+
+model TestiMonials {
+    id String @unique @default(uuid())
+    authorName String 
+    rating Ant
+    content String
+    authorAvatar String?
+    isAproved Boolean @default(false)
+
+}
