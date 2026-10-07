@@ -16,7 +16,7 @@ password String
 model TestiMonials {
     id String @unique @default(uuid())
     authorName String 
-    rating Ant
+    rating Int
     content String
     authorAvatar String?
     isAproved Boolean @default(false)
