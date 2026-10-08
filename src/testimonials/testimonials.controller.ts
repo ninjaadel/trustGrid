@@ -1,8 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { TestimonialsService } from './testimonials.service';
-import { CreateTestimonialDto } from './dto/create-testimonial.dto';
-import { UpdateTestimonialDto } from './dto/update-testimonial.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
+import { TestimonialsService } from './testimonials.service.js';
+import { CreateTestimonialDto } from './dto/create-testimonial.dto.js';
+import { UpdateTestimonialDto } from './dto/update-testimonial.dto.js';
+import { JwtAuthGuard } from '../auth/guards/jwt-guard.js';
 
+@UseGuards(JwtAuthGuard)
 @Controller('testimonials')
 export class TestimonialsController {
   constructor(private readonly testimonialsService: TestimonialsService) {}
@@ -23,7 +34,10 @@ export class TestimonialsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTestimonialDto: UpdateTestimonialDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateTestimonialDto: UpdateTestimonialDto,
+  ) {
     return this.testimonialsService.update(+id, updateTestimonialDto);
   }
 
