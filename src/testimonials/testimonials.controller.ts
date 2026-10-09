@@ -30,7 +30,7 @@ export class TestimonialsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.testimonialsService.findOne(+id);
+    return this.testimonialsService.findOne(-id);
   }
 
   @Patch(':id')
