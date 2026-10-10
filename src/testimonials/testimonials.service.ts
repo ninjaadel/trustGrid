@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTestimonialDto } from './dto/create-testimonial.dto';
-import { UpdateTestimonialDto } from './dto/update-testimonial.dto';
+import { CreateTestimonialDto } from './dto/create-testimonial.dto.js';
+import { UpdateTestimonialDto } from './dto/update-testimonial.dto.js';
+import { PrismaService } from '../../prisma/prisma.service.js';
 
 @Injectable()
 export class TestimonialsService {
-  create(createTestimonialDto: CreateTestimonialDto) {
-    return 'This action adds a new testimonial';
+  constructor(private readonly prisma: PrismaService) {}
+  async create(createTestimonialDto: CreateTestimonialDto) {
+    const create = await this.prisma.testiMonials.create({
+      data: { authorName: CreateTestimonialDto.name },
+    });
   }
 
   findAll() {
