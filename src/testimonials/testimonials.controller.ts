@@ -7,13 +7,13 @@ import {
   Param,
   Delete,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { TestimonialsService } from './testimonials.service.js';
 import { CreateTestimonialDto } from './dto/create-testimonial.dto.js';
 import { UpdateTestimonialDto } from './dto/update-testimonial.dto.js';
 import { JwtAuthGuard } from '../auth/guards/jwt-guard.js';
 
-@UseGuards(JwtAuthGuard)
 @Controller('testimonials')
 export class TestimonialsController {
   constructor(private readonly testimonialsService: TestimonialsService) {}
@@ -23,26 +23,30 @@ export class TestimonialsController {
     return this.testimonialsService.create(createTestimonialDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.testimonialsService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.testimonialsService.findOne(-id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.testimonialsService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateTestimonialDto: UpdateTestimonialDto,
   ) {
-    return this.testimonialsService.update(+id, updateTestimonialDto);
+    return this.testimonialsService.update(id, updateTestimonialDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.testimonialsService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.testimonialsService.remove(id);
   }
 }
