@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   UseGuards,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { TestimonialsService } from './testimonials.service.js';
 import { CreateTestimonialDto } from './dto/create-testimonial.dto.js';
@@ -31,14 +30,14 @@ export class TestimonialsController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  findOne(@Param('id') id: string) {
     return this.testimonialsService.findOne(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id') id: string,
     @Body() updateTestimonialDto: UpdateTestimonialDto,
   ) {
     return this.testimonialsService.update(id, updateTestimonialDto);
@@ -46,7 +45,7 @@ export class TestimonialsController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
+  remove(@Param('id') id: string) {
     return this.testimonialsService.remove(id);
   }
 }
