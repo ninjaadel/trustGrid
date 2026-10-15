@@ -3,6 +3,7 @@ import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { TestimonialsModule } from './testimonials/testimonials.module.js';
+import { SpacesModule } from './spaces/spaces.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -16,6 +17,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       serviceId: 'backend',
     }),
     TestimonialsModule,
+    SpacesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
