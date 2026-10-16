@@ -1,1 +1,3 @@
-export class CreateSpaceDto {}
+export class CreateSpaceDto {
+    @IsEmail()
+}
