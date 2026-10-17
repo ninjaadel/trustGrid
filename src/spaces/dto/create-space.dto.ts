@@ -1,3 +1,6 @@
+import { IsEmail } from 'class-validator';
+
 export class CreateSpaceDto {
-    @IsEmail()
+  @IsEmail()
+  email?: string;
 }
