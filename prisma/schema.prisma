@@ -11,6 +11,18 @@ id String @unique @default(uuid())
 email String @unique
 username String 
 password String
+spaces Space[]
+}
+
+model Space {
+    id            String   @id @default(uuid())
+    userId        String
+    user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    name          String
+    slug          String   @unique
+    headerTitle   String?
+    customMessage String?
+    createdAt     DateTime @default(now())
 }
 
 model TestiMonials {
