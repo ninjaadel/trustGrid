@@ -23,6 +23,4 @@ export class CreateSpaceDto {
   @IsOptional()
   @IsString()
   customMessage?: string;
-
-  @IsString
 }
